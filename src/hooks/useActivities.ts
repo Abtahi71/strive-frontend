@@ -30,7 +30,7 @@ export function useMyActivities() {
 }
 
 export function useActivity(id:string){
-    return useQuery<Activity>({
+    return useQuery<any>({
         queryKey: ["activities", "details",id],
         queryFn: async () => {
             const res = await apiFetch(`/api/activity/${id}`, { credentials: "include" });

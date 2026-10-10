@@ -222,7 +222,7 @@ export default function DailyProgressAnalytics({
                   }}
                   labelStyle={{ color: chartTheme.axisText }}
                   itemStyle={{ color: chartTheme.tooltipText }}
-                  formatter={(value: number) => [
+                  formatter={(value: any) => [
                     `${value.toFixed(0)}%`,
                     "Completion",
                   ]}

@@ -3,12 +3,12 @@ import { NextRequest } from "next/server";
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: Promise<{ activityId: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const { activityId } = await params;
+  const { id } = await params;
   const body = await request.json();
 
-  return proxyFetch(request, `activity/create-task/${activityId}`, {
+  return proxyFetch(request, `activity/create-task/${id}`, {
     method: "POST",
     body: JSON.stringify(body),
   });

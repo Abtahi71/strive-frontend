@@ -1364,8 +1364,14 @@ const handleSubmit = (taskId: string) => {
                 {achievement.iconType === "EMOJI"
                   ? emojiMap[achievement.iconValue]
                   : achievement.iconType === "PREBUILT"
-                  ? iconMap[achievement.iconValue]
-                  : "🏆"}
+                  ?(
+  (() => {
+    const Icon = iconMap[achievement.iconValue];
+
+    return Icon ? <Icon size={24} /> : "🏆";
+  })()
+) : (
+  "🏆")}
               </div>
 
               <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-yellow-400">

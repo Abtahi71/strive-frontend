@@ -5,7 +5,7 @@ export default function NewActivityPage() {
   return (
     <div>
       <h1>Create Activity</h1>
-      <CreateActivityForm />
+      {/* <CreateActivityForm onClose={() => {}} /> */}
     </div>
   );
 }

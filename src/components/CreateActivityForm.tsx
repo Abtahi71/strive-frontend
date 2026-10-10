@@ -359,7 +359,7 @@ type Props = {
   onClose: () => void;
 };
 
-export default function CreateActivityForm({ onClose }: Props) {
+export default function CreateActivityForm({ onClose }: any) {
   const router = useRouter();
   const createActivity = useCreateActivity();
 

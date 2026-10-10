@@ -392,7 +392,7 @@ interface CalendarDay {
   dayNumber: number;
   isCurrentMonth: boolean;
   isScheduled: boolean;
-  progress?: ProgressItem;
+  progress?: any;
 }
 
 /* ============================================================
@@ -515,7 +515,7 @@ export default function TaskProgressHistory({
      NORMALIZE API DATA
   ============================================================ */
 
-  const progressData: ProgressItem[] = Array.isArray(progress)
+  const progressData = Array.isArray(progress)
     ? progress
     : [];
 
@@ -540,7 +540,7 @@ export default function TaskProgressHistory({
        "2026-09-22" -> progress object
   ============================================================ */
 
-  const progressByDate = new Map<string, ProgressItem>();
+  const progressByDate = new Map<string, any>();
 
   progressData.forEach((item) => {
     progressByDate.set(
@@ -702,7 +702,7 @@ export default function TaskProgressHistory({
     "PROGRESS DATA//////////////////////////////////////////////",
     progressData.map((item) => ({
       date: item.date,
-      entries: item.entries?.map((e) => e.createdAt),
+      entries: item.entries?.map((e: any) => e.createdAt),
     }))
   );
 
@@ -1004,7 +1004,7 @@ export default function TaskProgressHistory({
                     </h3>
 
                     <div className="grid grid-cols-6 gap-2  space-y-2">
-                      {item.entries.map((entry) => (
+                      {item.entries.map((entry:any) => (
                         <div
                           key={entry.id}
                           className=" rounded-xl bg-zinc-900/80 p-3 text-sm"

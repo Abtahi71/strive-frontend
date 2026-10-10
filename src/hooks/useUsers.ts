@@ -228,7 +228,7 @@ export function useFriendList() {
 }
 
 export function useTaskProgress(taskId: string) {
-  return useQuery<TaskProgress[]>({
+  return useQuery<any>({
     queryKey: ["progress", "task", taskId],
 
     queryFn: async () => {
