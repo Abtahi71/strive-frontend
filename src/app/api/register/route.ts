@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Call external backend
-    const response = await fetch(`http://backend:5000/auth/register`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

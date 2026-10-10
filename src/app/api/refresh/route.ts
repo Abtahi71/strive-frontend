@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
   try {
     const sessionToken = request.cookies.get("sessionToken")?.value;
 
-    const backendRes = await fetch(`http://backend:5000/auth/refresh`, {
+    const backendRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/refresh`, {
       method: "POST",
       headers: { cookie: `sessionToken=${sessionToken ?? ""}` },
     });

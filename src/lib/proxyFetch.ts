@@ -2,7 +2,8 @@
 // src/lib/proxyFetch.ts
 import { NextRequest, NextResponse } from "next/server";
 
-const BACKEND_URL = process.env.BACKEND_URL || "http://backend:5000";
+const BACKEND_URL =
+  process.env.NEXT_PUBLIC_BACKEND_URL || "https://strive-dbur.onrender.com";
 
 function normalizePath(path: string) {
   return path.startsWith("/") ? path : `/${path}`;
