@@ -41,6 +41,7 @@ export default function LoginPage() {
       router.push("/dashboard");
       router.refresh(); // Refresh to update server components
     } catch (err) {
+      console.error(err);
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
       setLoading(false);
