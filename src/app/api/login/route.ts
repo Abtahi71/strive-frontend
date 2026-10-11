@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Call external backend
-    const response = await fetch(`http://backend:5000/auth/login`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -74,10 +74,10 @@ export async function POST(request: NextRequest) {
     // console.log("accessToken from the route",accessToken)
 
     return res;
-  } catch (error) {
+  } catch (error:any) {
     console.error("Login error:", error);
     return NextResponse.json(
-      { error: "An unexpected error occurred" },
+      { error: error.message },
       { status: 500 }
     );
   }
