@@ -53,7 +53,7 @@ export default function LoginPage() {
       "https://accounts.google.com/o/oauth2/v2/auth" +
       `?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}` +
       `&redirect_uri=${encodeURIComponent(
-        "http://localhost:5000/auth/google/callback"
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google/callback`
       )}` +
       `&response_type=code` +
       `&scope=${encodeURIComponent("openid email profile")}`;
