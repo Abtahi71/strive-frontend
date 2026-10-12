@@ -352,6 +352,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCreateActivity } from "@/src/hooks/useActivities";
+import { useEffect} from "react";
+import { createPortal } from "react-dom";
 
 const DAYS = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 
@@ -362,6 +364,8 @@ type Props = {
 export default function CreateActivityForm({ onClose }: any) {
   const router = useRouter();
   const createActivity = useCreateActivity();
+
+  const [mounted, setMounted] = useState(false);
 
   const [form, setForm] = useState({
     name: "",
@@ -376,6 +380,12 @@ export default function CreateActivityForm({ onClose }: any) {
     taskImage: "",
     days: [] as string[],
   });
+
+    useEffect(() => {
+      setMounted(true);
+    }, []);
+
+    if (!mounted) return null;
 
   const toggleDay = (day: string) => {
     setForm((prev) => ({
@@ -399,9 +409,10 @@ export default function CreateActivityForm({ onClose }: any) {
     }
   };
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+      // className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-500 flex items-start justify-center overflow-y-auto bg-black/70 p-4 pt-6 backdrop-blur-sm"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) {
           onClose();
@@ -715,7 +726,8 @@ export default function CreateActivityForm({ onClose }: any) {
           box-shadow: 0 0 0 2px rgb(113 113 122 / 0.1);
         }
       `}</style>
-    </div>
+    </div>,
+    document.body
   );
 }
 
