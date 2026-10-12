@@ -184,3 +184,13 @@ export function useChat() {
     },
   });
 }
+
+export function useAllActivities(){
+  return useQuery<any>({
+    queryKey: ["activities", "all"],
+    queryFn: async () => {
+      const res = await apiFetch("/api/activity/all", { credentials: "include" });
+      return handleRes(res);
+    },
+  });
+}

@@ -1579,17 +1579,25 @@ function LeaderboardRow({
   index,
   children,
   right,
+  isYou = false,
 }: {
   index: number;
   children: React.ReactNode;
   right: React.ReactNode;
+  isYou?: boolean;
 }) {
   return (
     <div
-      className={`${theme.borderWidthThin} ${theme.rowRadius} ${theme.borderGradientThin}`}
+      className={`${theme.borderWidthThin} ${theme.rowRadius} ${
+        isYou
+          ? "bg-gradient-to-b from-blue-300 via-blue-500 to-blue-800"
+          : theme.borderGradientThin
+      }`}
     >
       <div
-        className={`flex items-center justify-between p-3 ${theme.surfaceSolid} ${theme.rowInnerRadius}`}
+        className={`flex items-center justify-between p-3 ${
+          isYou ? "bg-zinc-900" : theme.surfaceSolid
+        } ${theme.rowInnerRadius}`}
       >
         <div className="flex items-center gap-3">
           <span
@@ -1691,7 +1699,8 @@ function TaskLeaderboard({ taskId, unit }: TaskLeaderboardProps) {
 
   return (
     <div className="flex flex-col gap-3">
-      {leadership.map((entry: any, index: any) => (
+      {leadership.map((entry: any, index: any) => {
+        
         <LeaderboardRow
           key={entry.userId}
           index={index}
@@ -1705,7 +1714,7 @@ function TaskLeaderboard({ taskId, unit }: TaskLeaderboardProps) {
             {entry.username ?? "Unknown user"}
           </p>
         </LeaderboardRow>
-      ))}
+})}
     </div>
   );
 }
@@ -1724,18 +1733,27 @@ function ActivityLeaderboard({ activityId }: ActivityLeaderboardProps) {
     isError,
   } = useActivityLeadership(activityId);
 
-  if (isLoading)
+  const {
+    data: user,
+    isLoading: userLoading,
+    isError: userError,
+  } = useCurrentUser();
+
+  /* ==================== STATES ==================== */
+  if (isLoading || userLoading)
     return (
       <p className={`py-8 text-center ${theme.muted}`}>
         Loading leaderboard...
       </p>
     );
-  if (isError)
+
+  if (isError || userError)
     return (
       <p className={`py-8 text-center ${theme.error}`}>
         Failed to load leaderboard.
       </p>
     );
+
   if (!leadership || leadership.length === 0)
     return (
       <p className={`py-8 text-center ${theme.muted}`}>
@@ -1743,31 +1761,49 @@ function ActivityLeaderboard({ activityId }: ActivityLeaderboardProps) {
       </p>
     );
 
+  /* ==================== RENDER ==================== */
   return (
     <div className="flex flex-col gap-3">
-      {leadership.map((entry: any, index: any) => (
-        <LeaderboardRow
-          key={entry.userId}
-          index={index}
-          right={
-            <div className="text-right">
-              <p className="font-semibold text-white">
-                {Number(entry.completionPercentage).toFixed(0)} tasks completed
+      {leadership.map((entry: any, index: number) => {
+        const isYou = entry.userId === user?.id;
+        const pct = Number(entry.completionPercentage).toFixed(0);
+
+        return (
+          <LeaderboardRow
+            key={entry.userId}
+            index={index}
+            isYou={isYou}
+            right={
+              <div className="text-right">
+                <p
+                  className={`font-semibold ${
+                    isYou ? "text-blue-300" : "text-white"
+                  }`}
+                >
+                  {pct}% completed
+                </p>
+                {entry.completed && (
+                  <p className={`text-xs ${theme.success}`}>✓ Completed</p>
+                )}
+              </div>
+            }
+          >
+            <div>
+              <p className="flex items-center gap-2 font-medium text-white">
+                {entry.username}
+                {isYou && (
+                  <span className="rounded-full border border-blue-300/40 bg-gradient-to-br from-blue-300 via-blue-500 to-blue-700 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
+                    You
+                  </span>
+                )}
               </p>
-              {entry.completed && (
-                <p className={`text-xs ${theme.success}`}>Completed</p>
-              )}
+              <p className={`text-xs ${theme.muted}`}>
+                {entry.completedTasks}/{entry.totalTasks} tasks
+              </p>
             </div>
-          }
-        >
-          <div>
-            <p className="font-medium text-white">{entry.username}</p>
-            <p className={`text-xs ${theme.muted}`}>
-              {entry.completedTasks}/{entry.totalTasks} tasks
-            </p>
-          </div>
-        </LeaderboardRow>
-      ))}
+          </LeaderboardRow>
+        );
+      })}
     </div>
   );
 }
