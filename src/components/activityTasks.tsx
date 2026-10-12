@@ -1780,7 +1780,7 @@ function ActivityLeaderboard({ activityId }: ActivityLeaderboardProps) {
                     isYou ? "text-blue-300" : "text-white"
                   }`}
                 >
-                  {pct}% completed
+                  {pct} tasks completed
                 </p>
                 {entry.completed && (
                   <p className={`text-xs ${theme.success}`}>✓ Completed</p>
