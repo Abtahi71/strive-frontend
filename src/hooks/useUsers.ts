@@ -181,7 +181,7 @@ export function useTodaysTasks(activityId: string) {
 }
 
 export function useDailyProgressAnalytics(activityId: string) {
-  return useQuery<DailyProgress[]>({
+  return useQuery<any>({
     queryKey: ["activities", activityId, "analytics", "daily"],
 
     queryFn: async () => {

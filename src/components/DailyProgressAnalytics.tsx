@@ -747,7 +747,7 @@ export default function DailyProgressAnalytics({
                     `${Number(value).toFixed(0)}%`,
                     name,
                   ]}
-                  labelFormatter={(_: any, payload: any[]) =>
+                  labelFormatter={(_: any, payload:readonly any[]) =>
                     payload?.[0]?.payload?.fullDate ?? ""
                   }
                 />
