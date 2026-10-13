@@ -140,7 +140,7 @@ export function useCreateTask(activityId: string) {
       scheduleType: string;
       days: string[];
     }) => {
-      const res = await apiFetch(`/api/activities/${activityId}/tasks`, {
+      const res = await apiFetch(`/api/activity/create-task/${activityId}`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
