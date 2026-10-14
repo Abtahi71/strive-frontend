@@ -1678,6 +1678,8 @@ interface TaskLeaderboardProps {
 function TaskLeaderboard({ taskId, unit }: TaskLeaderboardProps) {
   const { data: leadership, isLoading, isError } = useTaskLeadership(taskId);
 
+  console.log("TASK LEADERSHIP////////////////////////:", leadership);
+
   if (isLoading)
     return (
       <p className={`py-8 text-center ${theme.muted}`}>
@@ -1701,7 +1703,7 @@ function TaskLeaderboard({ taskId, unit }: TaskLeaderboardProps) {
     <div className="flex flex-col gap-3">
       {leadership.map((entry: any, index: any) => {
         
-        <LeaderboardRow
+        return(<LeaderboardRow
           key={entry.userId}
           index={index}
           right={
@@ -1713,7 +1715,7 @@ function TaskLeaderboard({ taskId, unit }: TaskLeaderboardProps) {
           <p className="font-medium text-white">
             {entry.username ?? "Unknown user"}
           </p>
-        </LeaderboardRow>
+        </LeaderboardRow>)
 })}
     </div>
   );
