@@ -85,19 +85,13 @@ export default function Navbar() {
                 className={`flex items-center gap-2 rounded-xl px-3 py-1.5 text-sm font-medium transition ${theme.ghostBtn}`}
               >
                 {/* Avatar */}
-                {user?.avatar ? (
-                  <img
-                    src={user.avatar}
-                    alt={user.username ?? "Profile"}
-                    className="h-6 w-6 rounded-full border border-zinc-700 object-cover"
-                  />
-                ) : (
+                
                   <span
                     className={`flex h-6 w-6 items-center justify-center rounded-full border border-zinc-700 bg-gradient-to-b from-zinc-700 to-zinc-900 text-[10px] font-semibold ${theme.gradientTextMuted}`}
                   >
                     {user?.username?.charAt(0).toUpperCase() ?? "?"}
                   </span>
-                )}
+                
                 <span className="hidden sm:inline">
                   {user?.username ?? "Profile"}
                 </span>
