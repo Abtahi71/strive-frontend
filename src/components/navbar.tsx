@@ -73,7 +73,7 @@ export default function Navbar() {
             <>
               {/* Dashboard — primary */}
               <Link
-                href="/profile"
+                href="/dashboard"
                 className={`hidden rounded-xl px-4 py-2 text-sm font-semibold shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 sm:inline-block ${theme.primaryBtn}`}
               >
                 Dashboard
