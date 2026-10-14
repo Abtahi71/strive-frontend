@@ -313,7 +313,7 @@ export interface CurrentUser {
 }
 
 export function useCurrentUser(id?:string) {
-  return useQuery<CurrentUser>({
+  return useQuery<any>({
     queryKey: ["currentUser"],
     queryFn: async () => {
       const response = await apiFetch(
