@@ -1,6 +1,7 @@
+import AllActivities from "@/src/components/allActivities";
+import Hero from "@/src/components/hero";
 import Image from "next/image";
-import AllActivities from "../components/allActivities";
-import Hero from "../components/hero";
+
 
 export default function Home() {
   return (
