@@ -9,46 +9,46 @@ function normalizePath(path: string) {
   return path.startsWith("/") ? path : `/${path}`;
 }
 
+type ProxyOptions = { requireAuth?: boolean };
+
 export async function proxyFetch(
   request: NextRequest,
   path: string,
-  options?: RequestInit
+  options?: RequestInit,
+  { requireAuth = true }: ProxyOptions = {}
 ) {
   const accessToken = request.cookies.get("accessToken")?.value;
-  if (!accessToken) {
+  if (requireAuth && !accessToken) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-   console.log("🔥 PROXY FETCH CALLED");
-   console.log("🔥 BACKEND URL:", BACKEND_URL);
-   console.log("🔥 PATH:", normalizePath(path));
-   console.log("🔥 FINAL URL:", `${BACKEND_URL}${normalizePath(path)}`);
-
+  console.log("🔥 PROXY FETCH CALLED");
+  console.log("🔥 BACKEND URL:", BACKEND_URL);
+  console.log("🔥 PATH:", normalizePath(path));
+  console.log("🔥 FINAL URL:", `${BACKEND_URL}${normalizePath(path)}`);
 
   const res = await fetch(`${BACKEND_URL}${normalizePath(path)}`, {
     ...options,
     headers: {
       ...(options?.headers || {}),
       "Content-Type": "application/json",
-      Cookie: `accessToken=${accessToken}`,
+      ...(accessToken ? { Cookie: `accessToken=${accessToken}` } : {}), //Cookie: `accessToken=${accessToken}`,
     },
     cache: "no-store",
   });
 
-    console.log("🔥 BACKEND STATUS:", res.status);
-    console.log("🔥 BACKEND STATUS TEXT:", res.statusText);
-    //console.log("🔥 BACKEND res TEXT:", res);
+  console.log("🔥 BACKEND STATUS:", res.status);
+  console.log("🔥 BACKEND STATUS TEXT:", res.statusText);
+  //console.log("🔥 BACKEND res TEXT:", res);
 
   const data = await res.json().catch(() => ({}));
 
-   //console.log("BACKEND DATA:", data);
+  //console.log("BACKEND DATA:", data);
   // console.log("BACKEND STATUS:", res.status);
 
-  
   //console.log("BACKEND RESPONSE STATUS:", res.status);
 
   if (!res.ok) {
-    
     //console.log("RETURNING STATUS TO BROWSER:", res.status);
     return NextResponse.json(
       { error: data.message || "Request failed" },
@@ -56,9 +56,14 @@ export async function proxyFetch(
     );
   }
 
-
   return NextResponse.json(data, { status: res.status });
 }
+
+export const optionalProxyFetch = (
+  request: NextRequest,
+  path: string,
+  options?: RequestInit
+) => proxyFetch(request, path, options, { requireAuth: false });
 
 // For routes that don't require auth on the backend (e.g. public-activities)
 export async function publicProxyFetch(path: string, options?: RequestInit) {
