@@ -37,7 +37,7 @@ export interface ActivityLeadership {
 
 async function handleRes(res: Response) {
   if (res.status === 401) {
-    window.location.href = "/login";
+   // window.location.href = "/login";
     throw new Error("Unauthorized");
   }
   if (!res.ok) throw new Error("Request failed");

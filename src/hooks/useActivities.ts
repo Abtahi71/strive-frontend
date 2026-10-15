@@ -9,7 +9,7 @@ import { apiFetch } from "@/src/lib/api-client";
 async function handleRes(res: Response) {
   console.log(res)
   if (res.status === 401) {
-    window.location.href = "/login";
+   // window.location.href = "/login";
     throw new Error("Unauthorized");
   }
   if (!res.ok) {

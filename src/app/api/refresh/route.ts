@@ -1,4 +1,4 @@
-// frontend/src/app/api/auth/refresh/route.ts
+// frontend/src/app/api/refresh/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
 const ACCESS_TOKEN_MAX_AGE = 15 * 60;
