@@ -1,4 +1,4 @@
-import { proxyFetch } from "@/src/lib/proxyFetch";
+import { optionalProxyFetch, proxyFetch } from "@/src/lib/proxyFetch";
 import { NextRequest } from "next/server";
 
 export async function GET(
@@ -7,5 +7,5 @@ export async function GET(
 ) {
   const { activityId } = await params;
 
-  return proxyFetch(request, `activity/activity-members/${activityId}`);
+  return optionalProxyFetch(request, `activity/activity-members/${activityId}`);
 }
