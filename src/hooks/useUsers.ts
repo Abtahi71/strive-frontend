@@ -322,7 +322,7 @@ export function useCurrentUser(id?:string) {
       );
 
       if (response.status === 401) {
-        throw new Error("Unauthorized");
+        return null; 
       }
 
       if (!response.ok) {
