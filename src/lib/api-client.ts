@@ -27,7 +27,7 @@ console.log("apiFetch FIRST RESPONSE:", res);
    console.log("apiFetch REFRESH RESULT:", refreshed);
    
    if (!refreshed) {
-     const publicPaths = ["/login", "/register", "/forgot-password", "/","activities/"];
+     const publicPaths = ["/login", "/register", "/forgot-password", "/","/activities/"];
 
      if (!publicPaths.includes(window.location.pathname)) {
        window.location.replace("/login");
