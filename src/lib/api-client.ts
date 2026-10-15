@@ -25,13 +25,15 @@ console.log("apiFetch FIRST RESPONSE:", res);
    const refreshed = await refreshPromise;
 
    console.log("apiFetch REFRESH RESULT:", refreshed);
-   
-   if (!refreshed) {
-     const publicPaths = ["/login", "/register", "/forgot-password", "/","/activities/"];
 
-     if (!publicPaths.includes(window.location.pathname)) {
+   const pathname = window.location.pathname
+
+   const isPublicPath = pathname === "/login" || pathname === "/register" || pathname === "/forgot-password" || pathname === "/" || pathname.startsWith("/activities/")
+   
+   if (!refreshed && !isPublicPath) {
+     
        window.location.replace("/login");
-     }
+     
 
      return res;
    }
