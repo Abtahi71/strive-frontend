@@ -2,6 +2,12 @@ let refreshPromise:Promise<boolean> | null = null
 
 async function doRefresh():Promise<boolean>{
     const res = await fetch(`/api/refresh`,{method:"POST",credentials:"include"});
+
+    const body = await res.clone().text();
+
+      console.log("REFRESH STATUS:", res.status);
+      console.log("REFRESH RESPONSE BODY:", body);
+
     return res.ok
 }
 
