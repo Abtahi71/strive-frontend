@@ -260,7 +260,7 @@ export default function LoginPage() {
               {loading ? "Logging in..." : "Login"}
             </button>
 
-            <Link href="/register">
+            <Link href="/register" className="flex items-center justify-center mb-4 gap-2">
               
                 <span className="text-sm">Don't have an account?</span>
                 Sign up
